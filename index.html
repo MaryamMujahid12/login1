@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign-Up Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffeb3b, #ff9800); /* Gradient background */
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: #fff; /* White background for the form */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px; /* Max width for larger screens */
+            text-align: center;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff9800; /* Focus color */
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffca28; /* Lighter yellow */
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #ffc107; /* Darker yellow on hover */
+            transform: scale(1.05);
+        }
+
+        .toggle-btn {
+            margin-top: 15px;
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: underline;
+        }
+
+        #message {
+            margin-top: 20px;
+            color: red;
+        }
+
+        .form-container {
+            display: none; /* Hide forms initially */
+        }
+
+        .active {
+            display: block; /* Show active form */
+        }
+
+        /* Animation effects */
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px; /* Reduce padding for smaller screens */
+            }
+
+            h1 {
+                font-size: 24px; /* Adjust heading size */
+            }
+
+            button {
+                padding: 8px; /* Adjust button padding */
+            }
+
+            input {
+                padding: 8px; /* Adjust input padding */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome</h1>
+        <div id="loginForm" class="form-container active fade-in">
+            <form>
+                <div class="input-group">
+                    <label for="loginUsername">Username</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="input-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" onclick="login(event)">Login</button>
+            </form>
+            <p class="toggle-btn" onclick="toggleForms()">Don't have an account? Sign Up</p>
+            <p id="message"></p>
+        </div>
+        <div id="signupForm" class="form-container fade-in">
+            <form>
+                <div class="input-group">
+                    <label for="signupUsername">Username</label>
+                    <input type="text" id="signupUsername" required>
+                </div>
+                <div class="input-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="input-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <button type="submit" onclick="signup(event)">Sign Up</button>
+            </form>
+            <p class="toggle-btn" onclick="toggleForms()">Already have an account? Login</p>
+            <p id="signupMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            loginForm.classList.toggle('active');
+            signupForm.classList.toggle('active');
+            document.getElementById('message').textContent = '';
+            document.getElementById('signupMessage').textContent = '';
+
+            // Add fade-in animation
+            if (loginForm.classList.contains('active')) {
+                loginForm.classList.add('fade-in');
+                signupForm.classList.remove('fade-in');
+            } else {
+                signupForm.classList.add('fade-in');
+                loginForm.classList.remove('fade-in');
+            }
+        }
+
+        function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            // Example validation
+            if (username === 'user' && password === 'pass') {
+                document.getElementById('message').textContent = 'Login successful!';
+            } else {
+                document.getElementById('message').textContent = 'Invalid username or password.';
+            }
+        }
+
+        function signup(event) {
+            event.preventDefault();
+            const username = document.getElementById('signupUsername').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            // Example signup success
+            document.getElementById('signupMessage').textContent = `Welcome, ${username}! You have signed up successfully.`;
+        }
+    </script>
+</body>
+</html>
